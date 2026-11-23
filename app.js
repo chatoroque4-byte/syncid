@@ -1,7 +1,9 @@
 (function () {
   "use strict";
 
-  var cfg = Object.assign({ GA_ID: "", FORM_URL: "", CONTACT_EMAIL: "" }, window.SYNCID_CONFIG || {});
+  var cfg = { GA_ID: "G-2TF3EL7CFZ", FORM_URL: "https://docs.google.com/forms/d/e/1FAIpQLSeLDHa1QWZ9LaTI2wOOFEHPp3Wk_HJiOQYuG3ixTAYPXwyWFQ/viewform", CONTACT_EMAIL: "chato.roque4@gmail.com" };
+  var user = window.SYNCID_CONFIG || {};
+  Object.keys(cfg).forEach(function (k) { if (user[k]) cfg[k] = user[k]; });
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 

@@ -12,7 +12,7 @@
                  personales (se muestra en el aviso de privacidad).
 ------------------------------------------------------------------- */
 window.SYNCID_CONFIG = {
-  GA_ID: "",
-  FORM_URL: "",
-  CONTACT_EMAIL: ""
+  GA_ID: "G-2TF3EL7CFZ",
+  FORM_URL: "https://docs.google.com/forms/d/e/1FAIpQLSeLDHa1QWZ9LaTI2wOOFEHPp3Wk_HJiOQYuG3ixTAYPXwyWFQ/viewform",
+  CONTACT_EMAIL: "chato.roque4@gmail.com"
 };
