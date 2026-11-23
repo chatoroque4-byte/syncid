@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SyncID: entra al plantel con una pulsera</title>
+<meta name="description" content="SyncID es una pulsera NFC que sustituye a la credencial plástica. Prueba la simulación y cuéntanos qué te parece.">
+<meta name="theme-color" content="#0F1A2E">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="publicsans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#demo">Ir a la simulación</a>
+
+<header class="top">
+  <div class="wrap top__in">
+    <a class="mark" href="#inicio" aria-label="SyncID, inicio">
+      <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><ellipse cx="32" cy="32" rx="22" ry="15" fill="none" stroke="currentColor" stroke-width="8"/><rect x="24" y="36" width="16" height="10" rx="3" fill="var(--paper)"/></svg>
+      <span>SyncID</span>
+    </a>
+    <a class="btn btn--small" href="#encuesta" data-survey="header">Responder la encuesta</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <!-- HERO: la simulación es lo primero que se ve -->
+  <section class="hero wrap" aria-labelledby="h1">
+    <div class="hero__copy">
+      <h1 id="h1">Entra al plantel con una pulsera, no con una credencial</h1>
+      <p class="lead">SyncID es una pulsera NFC que el guardia lee con su teléfono. El servidor confirma en segundos si puedes pasar y deja registro de cada entrada.</p>
+      <ol class="steps">
+        <li><strong>Acercas la pulsera</strong> al teléfono del guardia.</li>
+        <li><strong>El servidor decide</strong> si la pulsera es válida.</li>
+        <li><strong>Queda registrado</strong> quién entró y a qué hora.</li>
+      </ol>
+      <p class="note">Esta página simula el flujo. No es la aplicación real ni lee pulseras de verdad.</p>
+    </div>
+
+    <div class="stage" id="demo">
+      <h2 class="stage__title" id="demo-title">Pruébala: toca una pulsera</h2>
+
+      <div class="stage__grid">
+        <div class="phone" aria-labelledby="demo-title">
+          <div class="phone__bar"><span>Pantalla del guardia</span><span class="phone__sim">simulación</span></div>
+          <div class="screen" id="screen" data-state="idle" role="status" aria-live="polite">
+            <span class="ripple" id="ripple" aria-hidden="true"></span>
+            <svg class="ico ico--idle" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 22c6 6 6 14 0 20M29 16c10 10 10 22 0 32M38 10c14 14 14 30 0 44" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+            <svg class="ico ico--ok" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 34l13 13 24-28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="ico ico--no" viewBox="0 0 64 64" aria-hidden="true"><path d="M16 16l32 32M48 16L16 48" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg>
+            <svg class="ico ico--wait" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 10h24M20 54h24M22 10c0 14 20 14 20 22s-20 8-20 22M42 10c0 14-20 14-20 22" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <p class="screen__title" id="screen-title">Acerca la pulsera</p>
+            <p class="screen__msg" id="screen-msg">Elige una pulsera de abajo para simular la lectura.</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="bands" role="group" aria-label="Pulseras para probar">
+            <button class="band band--ok" type="button" data-band="activa">
+              <svg viewBox="0 0 160 100" aria-hidden="true"><ellipse cx="80" cy="46" rx="58" ry="32" fill="none" stroke="currentColor" stroke-width="15"/><rect x="62" y="58" width="36" height="22" rx="6" fill="#EDF0F4"/><circle cx="80" cy="69" r="5" fill="currentColor"/></svg>
+              <span class="band__name">Pulsera activa</span>
+              <span class="band__hint">Alumno vigente</span>
+            </button>
+            <button class="band band--lost" type="button" data-band="revocada">
+              <svg viewBox="0 0 160 100" aria-hidden="true"><ellipse cx="80" cy="46" rx="58" ry="32" fill="none" stroke="currentColor" stroke-width="15"/><rect x="62" y="58" width="36" height="22" rx="6" fill="#EDF0F4"/><path d="M70 63l20 12M90 63L70 75" stroke="#B3202E" stroke-width="4" stroke-linecap="round"/></svg>
+              <span class="band__name">Pulsera perdida</span>
+              <span class="band__hint">Reportada en la app</span>
+            </button>
+            <button class="band band--clone" type="button" data-band="copia">
+              <svg viewBox="0 0 160 100" aria-hidden="true"><ellipse cx="80" cy="46" rx="58" ry="32" fill="none" stroke="currentColor" stroke-width="12" stroke-dasharray="10 9"/><rect x="62" y="58" width="36" height="22" rx="6" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="5 4"/></svg>
+              <span class="band__name">Copia del chip</span>
+              <span class="band__hint">Mismo UID, sin token</span>
+            </button>
+          </div>
+
+          <label class="switch">
+            <input type="checkbox" id="offline">
+            <span class="switch__track" aria-hidden="true"></span>
+            <span class="switch__text">Sin conexión a internet</span>
+          </label>
+
+          <div class="log">
+            <h3>Bitácora de accesos</h3>
+            <ol id="log" aria-live="off"><li class="log__empty">Aún no hay lecturas. La bitácora guarda hora, pulsera y resultado; nunca datos médicos.</li></ol>
+          </div>
+
+          <div class="nudge" id="nudge" hidden>
+            <p><strong>Ya viste cómo responde.</strong> Cuéntanos qué te pareció: son 3 minutos, anónima y voluntaria.</p>
+            <a class="btn" href="#encuesta" data-survey="after_demo">Responder la encuesta</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ CAMBIA -->
+  <section class="block wrap" aria-labelledby="h-cambia">
+    <h2 id="h-cambia">Qué cambia frente a la credencial plástica</h2>
+    <div class="vs" role="table" aria-label="Comparación entre la credencial plástica y SyncID">
+      <div class="vs__head" role="row"><span role="columnheader">Situación</span><span role="columnheader">Hoy</span><span role="columnheader">Con SyncID</span></div>
+      <div class="vs__row" role="row"><span class="vs__k" role="rowheader">Verificar quién eres</span><span class="vs__a" role="cell"><b>Hoy</b> El guardia compara la foto a simple vista, con filas en horas pico.</span><span class="vs__b" role="cell"><b>Con SyncID</b> El servidor valida la pulsera y responde en pantalla; el objetivo es menos de 2 segundos.</span></div>
+      <div class="vs__row" role="row"><span class="vs__k" role="rowheader">Credencial prestada</span><span class="vs__a" role="cell"><b>Hoy</b> Basta mostrar un documento para entrar.</span><span class="vs__b" role="cell"><b>Con SyncID</b> La pulsera se asigna a un solo alumno y cada lectura queda registrada.</span></div>
+      <div class="vs__row" role="row"><span class="vs__k" role="rowheader">Pérdida o extravío</span><span class="vs__a" role="cell"><b>Hoy</b> Una credencial perdida no se puede invalidar.</span><span class="vs__b" role="cell"><b>Con SyncID</b> La reportas desde la app y la pulsera deja de abrir al instante.</span></div>
+      <div class="vs__row" role="row"><span class="vs__k" role="rowheader">Historial</span><span class="vs__a" role="cell"><b>Hoy</b> Casi no queda registro consultable de entradas y salidas.</span><span class="vs__b" role="cell"><b>Con SyncID</b> Cada acceso guarda fecha y hora del servidor, pulsera, punto de acceso y resultado.</span></div>
+      <div class="vs__row" role="row"><span class="vs__k" role="rowheader">Emergencia médica</span><span class="vs__a" role="cell"><b>Hoy</b> No hay forma rápida de conocer datos básicos de salud.</span><span class="vs__b" role="cell"><b>Con SyncID</b> Tú eliges qué datos ve el personal en un escaneo de emergencia, y cada consulta se registra.</span></div>
+    </div>
+  </section>
+
+  <!-- PRIVACIDAD -->
+  <section class="block block--ink" aria-labelledby="h-priv">
+    <div class="wrap split">
+      <div>
+        <h2 id="h-priv">La pulsera guarda un código, no tus datos</h2>
+        <p>El chip NTAG213 de la pulsera solo contiene un identificador aleatorio (token). Tu perfil, tu historial y los datos médicos que decidas compartir viven en la base de datos, donde se pueden proteger, cambiar o revocar sin tocar la pulsera.</p>
+        <p>Por eso copiar el número de serie del chip no basta: el servidor valida el token y rechaza la copia.</p>
+      </div>
+      <div class="rec" aria-label="Ejemplo del contenido de la pulsera">
+        <p class="rec__t">Lo que guarda la pulsera</p>
+        <p class="rec__v">token: 7d41-9c0e-b2a8</p>
+        <p class="rec__t">Lo que no guarda</p>
+        <ul>
+          <li>Nombre ni número de control</li>
+          <li>Fotografía</li>
+          <li>Datos médicos</li>
+          <li>Historial de accesos</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section class="block wrap" aria-labelledby="h-roles">
+    <h2 id="h-roles">Cada persona ve solo lo que le corresponde</h2>
+    <dl class="roles">
+      <div><dt>Alumno</dt><dd>Consulta su perfil y su historial, y decide qué datos médicos se muestran en una emergencia.</dd></div>
+      <div><dt>Guardia</dt><dd>Escanea pulseras, ve si el acceso se permite y puede hacer un escaneo de emergencia con su cuenta.</dd></div>
+      <div><dt>Docente</dt><dd>Consulta la información que se le asigne, por ejemplo los accesos de sus grupos.</dd></div>
+      <div><dt>Administrador</dt><dd>Da de alta y baja usuarios, asigna o revoca pulseras y consulta las bitácoras. No puede editarlas.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ESTADO DEL PROYECTO -->
+  <section class="block wrap" aria-labelledby="h-estado">
+    <h2 id="h-estado">En qué punto está el proyecto</h2>
+    <p class="prose">SyncID es un prototipo. Tiene una aplicación Android funcional (junio de 2026), un piloto con 19 pulseras y participó en InnovaTecNM 2026. Falta medir en campo cuánto reduce el tiempo de registro, y por eso estamos pidiendo tu opinión.</p>
+  </section>
+
+  <!-- ENCUESTA -->
+  <section class="block block--cta" id="encuesta" aria-labelledby="h-enc">
+    <div class="wrap cta">
+      <div>
+        <h2 id="h-enc">Danos tu opinión en 3 minutos</h2>
+        <p>La encuesta es voluntaria y anónima: no pedimos nombre ni correo. Puedes dejarla cuando quieras. Es para personas de 18 años o más.</p>
+      </div>
+      <a class="btn btn--big" href="#encuesta" data-survey="footer_cta">Responder la encuesta</a>
+    </div>
+  </section>
+
+  <!-- AVISO DE PRIVACIDAD -->
+  <section class="block wrap" aria-labelledby="h-aviso">
+    <h2 id="h-aviso">Aviso de privacidad</h2>
+    <details class="aviso" id="aviso">
+      <summary>Leer el aviso de privacidad</summary>
+      <div class="aviso__body">
+        <p><strong>Quién es responsable.</strong> El equipo del proyecto SyncID, integrado por estudiantes de Ingeniería en Tecnologías de la Información y Comunicaciones del Instituto Tecnológico de Aguascalientes, en Aguascalientes, Ags. <span id="contact-line" hidden>Contacto: <a id="contact-link" href="#"></a>.</span></p>
+        <p><strong>Qué datos tratamos.</strong> Esta página no pide datos personales. Si aceptas las cookies de analítica, Google Analytics 4 registra datos de uso con identificadores seudónimos: páginas vistas, clics y acciones en la simulación, tipo de dispositivo y navegador, y ubicación aproximada. La encuesta es anónima: no solicita nombre ni correo y no contiene datos personales sensibles.</p>
+        <p><strong>Para qué los usamos.</strong> Solo para evaluar el interés, la facilidad de uso y la aceptación del prototipo, y para mejorarlo. No usamos los datos para publicidad ni los vendemos.</p>
+        <p><strong>Con quién se comparten.</strong> Google LLC procesa los datos de analítica y de la encuesta como proveedor de los servicios Google Analytics y Google Forms. Los resultados se presentan de forma agregada en un trabajo escolar.</p>
+        <p><strong>Tus opciones.</strong> Puedes rechazar las cookies de analítica en el aviso inicial o cambiar tu decisión con el botón «Preferencias de analítica» al pie de la página. Puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición escribiendo al contacto indicado. La encuesta es voluntaria, puedes dejarla en cualquier momento y no pedimos que te identifiques.</p>
+        <p><strong>Cambios.</strong> Si este aviso cambia, se actualizará en esta misma página. Última actualización: noviembre de 2026.</p>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div>
+      <p class="foot__t">Proyecto escolar de Ingeniería en Tecnologías de la Información y Comunicaciones, Instituto Tecnológico de Aguascalientes. Negocios Electrónicos I, agosto a diciembre de 2026.</p>
+      <p class="foot__s">Equipo: Carlos Eduardo Loera Pérez, José Uriel Padilla Fajardo, José Ángel Roque Espinoza y Edgar Isaías Velasco Durón. Este no es un sitio oficial del Instituto ni del Tecnológico Nacional de México.</p>
+    </div>
+    <button class="linklike" type="button" id="prefs">Preferencias de analítica</button>
+  </div>
+</footer>
+
+<!-- Aviso de analítica -->
+<div class="consent" id="consent" role="dialog" aria-labelledby="consent-t" aria-describedby="consent-d" hidden>
+  <div class="consent__in">
+    <div>
+      <p class="consent__t" id="consent-t">¿Podemos medir tu visita?</p>
+      <p id="consent-d">Usamos Google Analytics 4 con cookies para saber cuántas personas prueban la simulación. No pedimos tu nombre ni tu correo. Puedes cambiar tu decisión al pie de la página.</p>
+    </div>
+    <div class="consent__btns">
+      <button class="btn btn--ghost" type="button" id="consent-no">No, gracias</button>
+      <button class="btn" type="button" id="consent-yes">Sí, permitir</button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
